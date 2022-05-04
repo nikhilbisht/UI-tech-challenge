@@ -1,0 +1,19 @@
+{
+  "name": "ui-tech-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikhilbisht/UI-tech-challenge.git"
+  },
+  "author": "Nikhil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikhilbisht/UI-tech-challenge/issues"
+  },
+  "homepage": "https://github.com/nikhilbisht/UI-tech-challenge#readme"
+}
