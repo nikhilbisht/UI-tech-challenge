@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/nikhilbisht/UI-tech-challenge/issues"
   },
-  "homepage": "https://github.com/nikhilbisht/UI-tech-challenge#readme"
+  "homepage": "https://github.com/nikhilbisht/UI-tech-challenge#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.21.1"
+  }
 }
