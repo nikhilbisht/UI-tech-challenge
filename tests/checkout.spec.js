@@ -1,39 +1,42 @@
-const { test, expect } = require('@playwright/test');
+const { test, expect } = require('@playwright/test'); 'input[data-test="password"]'
+const { Login } = require('../page-objects/login');
+const { Inventory } = require('../page-objects/inventory');
+const {Item} = require('../page-objects/item')
+const {Headers} = require('../page-objects/headers')
+const {Cart} = require('../page-objects/cart')
+const {Checkout} = require('../page-objects/checkout')
+const {CheckoutOverview} = require('../page-objects/checkoutOverview')
+const {CheckoutComplete} = require('../page-objects/checkoutComplete')
 
 test('basic test', async ({ page }) => {
-   // page = await context.newPage();
+    //page.setDefaultTimeout(50000)
+    //test.setTimeout(120000)
+
+    // const page = await browser.newPage()
     await page.goto('https://www.saucedemo.com');
-    await page.fill('input[data-test="username"]', 'standard_user')
-    await page.fill('input[data-test="password"]', 'secret_sauce')
-    await page.click('input[data-test="login-button"]')
-    // await expect(page.locator('a.shopping_cart_link')).toBeVisible()
-    // await page.click('a.shopping_cart_link')
-    // await page.locator('span.title').textContent()
-    await page.locator('div.inventory_item_name:has-text("Sauce Labs Backpack")').click()
-    await page.locator('button:has-text("Add to cart")').click()
-    const title= await page.locator('div#inventory_item_container button')
-    await expect(title).toHaveText('Remove')
-    await page.click('a.shopping_cart_link')
-    const qty = page.locator('div.cart_quantity')
-    await expect(qty).toHaveText('1')
-    const item_name = page.locator('div.inventory_item_name')
-    await expect(item_name).toHaveText('Sauce Labs Backpack')
-    const item_price = page.locator('div.inventory_item_price')
-    await expect(item_price).toHaveText('$29.99')
-    await page.click('button[data-test="checkout"]')
-    await expect(page.locator('div.checkout_info')).toBeVisible()
-    await page.fill('input[data-test="firstName"]','Nikhil')
-    await page.fill('input[data-test="lastName"]','Bisht')
-    await page.fill('input[data-test="postalCode"]','110096')
-    await page.click('input[data-test="continue"]')
-    await page.click('button[data-test="finish"]')
-    await expect(page.locator('h2.complete-header')).toBeVisible()
-    const header = await page.locator('h2.complete-header')
-    // await expect(header).toBeVisible()
-    await expect(header).toHaveText('THANK YOU FOR YOUR ORDER')
-    // console.log("headeer is", header) 
- 
-
-    
-
+    const loginPage = new Login(page)
+    const productsPage = new Inventory(page)
+    const itemPage = new Item(page)
+    const headersPage = new Headers(page)
+    const cartPage = new Cart(page)
+    const checkoutPage = new Checkout(page)
+    const checkoutOverviewPage = new CheckoutOverview(page)
+    const checkoutCompletePage = new CheckoutComplete(page)
+    await loginPage.login("standard_user","secret_sauce")
+    await productsPage.clickItem("Sauce Labs Backpack")
+    await itemPage.verifyBtnText("Add to cart")
+    await itemPage.clickAddCartBtn()
+    await itemPage.verifyBtnText("Remove")
+    await headersPage.clickOnCart()
+    await cartPage.verifyItemQty("1")
+    await cartPage.verifyItemPrice("$29.99")
+    await cartPage.verifyItemName("Sauce Labs Backpack")
+    await cartPage.clickCheckoutBtn()
+    await expect(page.locator(checkoutPage.checkoutInfo)).toBeVisible()
+    await checkoutPage.enterFirstName("Nikhil")
+    await checkoutPage.enterLastName("Bisht")
+    await checkoutPage.enterZipCode("110096")
+    await checkoutPage.clickContinueBtn()
+    await checkoutOverviewPage.clickFinishBtn()
+    await checkoutCompletePage.verifyHeaderText()
 });
