@@ -15,7 +15,7 @@ module.exports = {
       use: { ...devices['Desktop Firefox'] },
     },
     {
-      name: 'webkit',
+      name: 'edge',
       use: { ...devices['Desktop Edge'] },
     },
   ],
