@@ -5,7 +5,7 @@ const {Item} = require('../page-objects/item')
 const {Headers} = require('../page-objects/headers')
 const {Cart} = require('../page-objects/cart')
 
-test('basic test', async ({ page }) => {
+test('Remove item on checkout page', async ({ page }) => {
     const loginPage = new Login(page)
     const productsPage = new Inventory(page)
     const itemPage = new Item(page)

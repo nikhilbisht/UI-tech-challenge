@@ -8,11 +8,8 @@ const {Checkout} = require('../page-objects/checkout')
 const {CheckoutOverview} = require('../page-objects/checkoutOverview')
 const {CheckoutComplete} = require('../page-objects/checkoutComplete')
 
-test('basic test', async ({ page }) => {
-    //page.setDefaultTimeout(50000)
-    //test.setTimeout(120000)
+test('Add a product and checkout', async ({ page }) => {
 
-    // const page = await browser.newPage()
     await page.goto('https://www.saucedemo.com');
     const loginPage = new Login(page)
     const productsPage = new Inventory(page)
